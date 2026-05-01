@@ -6,12 +6,24 @@ import os
 import sys
 from dotenv import load_dotenv
 
+
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 from app import create_app
 from models import db, User, Project, ProjectMember, Task, TaskEvaluation
 from werkzeug.security import generate_password_hash
 from datetime import datetime, timezone, timedelta
+
+if __name__ == "__main__":
+    app = create_app()
+    with app.app_context():
+        db.create_all()  # tables banao agar nahi hain
+        
+        # Sirf seed karo agar koi user nahi hai
+        if User.query.count() == 0:
+            seed_db(app)
+        else:
+            print("DB already seeded, skipping.")
 
 
 def reset_db(app):

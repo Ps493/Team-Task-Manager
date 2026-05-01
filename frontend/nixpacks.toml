@@ -2,7 +2,7 @@
 NODE_ENV = "development"
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["npm install", "chmod +x node_modules/.bin/vite"]
 
 [phases.build]
 cmds = ["npm run build"]
